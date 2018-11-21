@@ -11,11 +11,25 @@
 /* ----- map ------ */
 
 .map-container{
-     padding-top: 2rem;
+     margin-top: 2rem;
 }
 
 div #map {
     height: 100%;
     width: 100%;
     min-height: 360px;
+}
+
+/* ----- results ------ */
+
+.results-container{
+    margin-top: 2rem;
+    margin-bottom: 5rem;
+    border: 1px solid #888888;
+    box-shadow: 5px 10px #aaaaaa;
+}
+
+.results-table{
+    min-height: 360px;
+    width: 100%;
 }
