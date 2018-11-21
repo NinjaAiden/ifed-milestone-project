@@ -1,0 +1,21 @@
+/* ----- search bar ------ */
+
+.bg-blue {
+    background-color: #00dfff;
+}
+
+.search-bar {
+    width: 60%;
+}
+
+/* ----- map ------ */
+
+.map-container{
+     padding-top: 2rem;
+}
+
+div #map {
+    height: 100%;
+    width: 100%;
+    min-height: 360px;
+}
