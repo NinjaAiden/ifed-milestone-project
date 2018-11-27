@@ -24,8 +24,8 @@
     <!-- searchbar -->
     <nav class="navbar navbar-dark bg-blue col-sm-12">
         <a class="navbar-brand col-sm-2" href="#">TourEasy</a>
-        <form class="form-inline search-bar">
-            <input class="form-control mr-sm-2 col-sm-8" type="search" placeholder="Where would you like to go?" aria-label="Search">
+        <form class="form-inline search-bar" >
+            <input class="form-control mr-sm-2 col-sm-8 controls" id="search-bar" type="text" placeholder="Where would you like to go?" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
         <a class="navbar-brand col-sm-2" href="#">Your holiday, made simple</a>
@@ -63,10 +63,10 @@
     </div>
 
     <footer>
-        <!-- script to load map API -->
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8oF2DjYQt4uwB0vepjVFH6JPcY86voes&callback=initMap"></script>
         <!-- script to load map with custom data -->
-        <script src="assets/js/map.js"></script>
+        <script src="assets/js/map.js"></script> 
+        <!-- script to load map API -->
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8oF2DjYQt4uwB0vepjVFH6JPcY86voes&libraries=places&callback=initMap"></script>
     </footer>
 
 </body>
