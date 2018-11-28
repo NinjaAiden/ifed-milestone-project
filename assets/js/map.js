@@ -1,12 +1,13 @@
 var map;
 var service;
+var autocomplete;
 var countryRestrict = { 'country': [] };
 
 // list of coordinates for countries
 var countries = {
     'china': {
         center: { lat: 35.8, lng: 104.1 },
-        zoom: 5
+        zoom: 4
     },
     'france': {
         center: { lat: 46.2, lng: 2.2 },
@@ -18,7 +19,7 @@ var countries = {
     },
     'malaysia': {
         center: { lat: 3.6, lng: 101.9 },
-        zoom: 5
+        zoom: 6
     },
     'mexico': {
         center: { lat: 24.0, lng: -102.5 },
@@ -37,8 +38,8 @@ var countries = {
         zoom: 5
     },
     'us': {
-        center: { lat: 37.1, lng: -95.7 },
-        zoom: 5
+        center: { lat: 38.1, lng: -95.7 },
+        zoom: 4
     }
 };
 
@@ -71,34 +72,14 @@ function initMap() {
         bounds: defaultBounds
     };
 
-    // get HTML element for autocomplete
-    var input = document.getElementById("search-bar");
+    // // get HTML element for autocomplete
+    // var input = document.getElementById("search-bar");
 
     // create autocomplete object
-    var autocomplete = new google.maps.places.Autocomplete();
+    autocomplete = new google.maps.places.Autocomplete();
+    
+    // set event listener for country picker dropbox
     document.getElementById('country-picker').addEventListener('change', setAutocompleteCountry);
-
-//     var request = {
-
-//         location: 'London',
-//         radius: '500',
-//         query: 'restaurant'
-//     };
-
-//     service = new google.maps.places.PlacesService(map);
-//     service.textSearch(request, callback);
-// }
-
-// function callback(results, status) {
-//     if (status == google.maps.places.PlacesServiceStatus.OK) {
-//         clearResults();
-//         clearMarkers();
-//         for (var i = 0; i < results.length; i++) {
-//             var place = results[i];
-//             createMarker(results[i]);
-//             console.log("SUCCESS");
-//         }
-//     }
 }
 
 
