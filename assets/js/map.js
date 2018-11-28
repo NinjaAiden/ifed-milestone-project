@@ -1,6 +1,5 @@
 var map;
 var service;
-var infowindow;
 var countryRestrict = { 'country': [] };
 
 // list of coordinates for countries
@@ -18,11 +17,11 @@ var countries = {
         zoom: 5
     },
     'malaysia': {
-        center: { lat: 4.2, lng: 101.9 },
+        center: { lat: 3.6, lng: 101.9 },
         zoom: 5
     },
     'mexico': {
-        center: { lat: 23.6, lng: -102.5 },
+        center: { lat: 24.0, lng: -102.5 },
         zoom: 5
     },
     'spain': {
@@ -30,7 +29,7 @@ var countries = {
         zoom: 5
     },
     'thailand': {
-        center: { lat: 15.8, lng: 10.4 },
+        center: { lat: 15.8, lng: 100.9 },
         zoom: 5
     },
     'uk': {
@@ -59,9 +58,11 @@ function initMap() {
         mapTypeControl: false,
         panControl: false,
         streetViewControl: false,
+        // resctrict to country selector
         componentRestrictions: countryRestrict
     });
 
+    // define bounds for search area
     var defaultBounds = new google.maps.LatLngBounds(
         new google.maps.LatLng(-90, -180),
         new google.maps.LatLng(90, 180));
@@ -74,33 +75,36 @@ function initMap() {
     var input = document.getElementById("search-bar");
 
     // create autocomplete object
-    var autocomplete = new google.maps.places.Autocomplete(input, options);
+    var autocomplete = new google.maps.places.Autocomplete();
+    document.getElementById('country-picker').addEventListener('change', setAutocompleteCountry);
 
-    var request = {
+//     var request = {
 
-        location: 'London',
-        radius: '500',
-        query: 'restaurant'
-    };
+//         location: 'London',
+//         radius: '500',
+//         query: 'restaurant'
+//     };
 
-    service = new google.maps.places.PlacesService(map);
-    service.textSearch(request, callback);
+//     service = new google.maps.places.PlacesService(map);
+//     service.textSearch(request, callback);
+// }
+
+// function callback(results, status) {
+//     if (status == google.maps.places.PlacesServiceStatus.OK) {
+//         clearResults();
+//         clearMarkers();
+//         for (var i = 0; i < results.length; i++) {
+//             var place = results[i];
+//             createMarker(results[i]);
+//             console.log("SUCCESS");
+//         }
+//     }
 }
 
-function callback(results, status) {
-    if (status == google.maps.places.PlacesServiceStatus.OK) {
-        clearResults();
-        clearMarkers();
-        for (var i = 0; i < results.length; i++) {
-            var place = results[i];
-            createMarker(results[i]);
-            console.log("SUCCESS");
-        }
-    }
-}
 
+// function for the country dropdown
 function setAutocompleteCountry() {
-    var country = document.getElementById('country').value;
+    var country = document.getElementById('country-picker').value;
     if (country == 'all') {
         autocomplete.setComponentRestrictions({ 'country': [] });
         map.setCenter({ lat: 15, lng: 0 });
