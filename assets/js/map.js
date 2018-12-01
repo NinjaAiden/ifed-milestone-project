@@ -1,7 +1,10 @@
-var map;
-var service;
-var autocomplete;
+var map, autocomplete;
 var countryRestrict = { 'country': [] };
+var MARKER_PATH = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
+var hostnameRegexp = new RegExp('^https?://.+?/');
+
+
+
 
 // list of coordinates for countries
 var countries = {
@@ -55,6 +58,7 @@ function initMap() {
             lat: 46.619261,
             lng: -33.134766
         },
+        
         // remove unnecessary controls for initial view
         mapTypeControl: false,
         panControl: false,
@@ -64,6 +68,7 @@ function initMap() {
     });
 
     // define bounds for search area
+    // these bounds pertain to the entire globe
     var defaultBounds = new google.maps.LatLngBounds(
         new google.maps.LatLng(-90, -180),
         new google.maps.LatLng(90, 180));
@@ -72,11 +77,14 @@ function initMap() {
         bounds: defaultBounds
     };
 
-    // // get HTML element for autocomplete
-    // var input = document.getElementById("search-bar");
-
     // create autocomplete object
-    autocomplete = new google.maps.places.Autocomplete();
+    autocomplete = new google.maps.places.Autocomplete(document.getElementById('search-bar')), {
+              types: ['(cities)'],
+              componentRestrictions: countryRestrict
+    };
+    places = new google.maps.places.PlacesService(map);
+    
+    autocomplete.addListener('place_changed', onPlaceChanged());
     
     // set event listener for country picker dropbox
     document.getElementById('country-picker').addEventListener('change', setAutocompleteCountry);
@@ -110,8 +118,21 @@ function clearMarkers() {
 }
 
 function clearResults() {
-    var results = document.getElementById('results');
+    var results = document.getElementById('results-table');
     while (results.childNodes[0]) {
         results.removeChild(results.childNodes[0]);
     }
 }
+
+// When the user selects a city, get the place details for the city and
+      // zoom the map in on the city.
+      function onPlaceChanged() {
+        var place = autocomplete.getPlace();
+        if (place.geometry) {
+          map.panTo(place.geometry.location);
+          map.setZoom(15);
+          search();
+        } else {
+          document.getElementById('autocomplete').placeholder = 'Enter a city';
+        }
+      }

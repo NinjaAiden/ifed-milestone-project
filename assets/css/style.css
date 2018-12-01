@@ -10,8 +10,9 @@
 
 /* ----- map ------ */
 
-.map-container{
-     margin-top: 2rem;
+.map-container {
+    margin-top: 2rem;
+    padding: 0;
 }
 
 div #map {
@@ -22,14 +23,14 @@ div #map {
 
 /* ----- results ------ */
 
-.results-container{
+.results-container {
     margin-top: 2rem;
     margin-bottom: 5rem;
     border: 1px solid #888888;
     box-shadow: 5px 10px #aaaaaa;
 }
 
-.results-table{
+#results-table {
     min-height: 360px;
     width: 100%;
 }
