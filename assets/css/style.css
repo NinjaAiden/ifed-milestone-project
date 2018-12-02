@@ -19,6 +19,12 @@ div #map {
     height: 100%;
     width: 100%;
     min-height: 360px;
+    margin-bottom: 2rem;
+}
+
+/* ----- buttons ------ */
+.request-buttons{
+    text-align: center;
 }
 
 /* ----- results ------ */
@@ -32,5 +38,5 @@ div #map {
 
 #results-table {
     min-height: 360px;
-    width: 100%;
+    width: 70%;
 }

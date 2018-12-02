@@ -2,29 +2,30 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <!-- link to boostrap css script -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <!-- link to custom css file -->
-    <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+  <!-- link to boostrap css script -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <!-- link to custom css file -->
+  <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
 
-    <title>Document</title>
+  <title>Document</title>
 
-    <!-- links to bootstrap js scripts -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <!-- links to bootstrap js scripts -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 </head>
 
 <body>
-    <!-- searchbar -->
-    <nav class="navbar navbar-dark bg-blue col-sm-12">
-        <a class="navbar-brand col-sm-1" href="#">TourEasy</a>
-        <select name="dropdown" id="country-picker">
+
+  <!-- searchbar -->
+  <nav class="navbar navbar-dark col-sm-12 bg-blue">
+    <a class="navbar-brand col-sm-1" href="#">TourEasy</a>
+    <select name="dropdown" class="col-sm-2" id="country-picker">
                 <option value="all">Select A Country</option>
                 <option value="china">China</option>
                 <option value="france">France</option>
@@ -36,59 +37,66 @@
                 <option value="uk">United Kingdom</option>
                 <option value="us">United States</option>
         </select>
-        <form class="form-inline search-bar">
-            <input id="search-bar" class="form-control mr-sm-1 col-sm-4 controls"  type="text" placeholder="Select A City" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-        <a class="navbar-brand col-sm-2" href="#">Your holiday, made simple</a>
-    </nav>
+    <form class="form-inline search-bar col-sm-4">
+      <input id="search-bar" class="form-control controls" type="text" placeholder="Select A City" aria-label="Search">
+    </form>
+    <a class="navbar-brand" href="#">Your holiday, made simple</a>
+  </nav>
 
-    <!-- map screen -->
-    <div class="container map-container">
-        <div id="map"></div>
-    </div>
+  <!-- map screen -->
+  <div class="container map-container">
+    <div id="map"></div>
+  </div>
 
-    <div id="listing">
-      <table id="resultsTable">
-        <tbody id="results"></tbody>
+  <div class="request-buttons">
+    <button id="hotelBtn" class="col-sm-3 btn bg-blue" onclick="detectButton(this)">Hotels</button>
+    <button id="restaurantBtn" class="col-sm-3 btn bg-blue" onclick-"detectButton(this)">Restaurants</button>
+    <button id="barBtn" class="col-sm-3 btn bg-blue" onclick="detectButton(this)">Bars</button>
+  </div>
+
+  <!-- results table -->
+  <div id="listing">
+    <table id="resultsTable">
+      <tbody id="results"></tbody>
+    </table>
+  </div>
+
+
+  <div style="display: none">
+    <div id="info-content">
+      <table>
+        <tr id="iw-url-row" class="iw_table_row">
+          <td id="iw-icon" class="iw_table_icon"></td>
+          <td id="iw-url"></td>
+        </tr>
+        <tr id="iw-address-row" class="iw_table_row">
+          <td class="iw_attribute_name">Address:</td>
+          <td id="iw-address"></td>
+        </tr>
+        <tr id="iw-phone-row" class="iw_table_row">
+          <td class="iw_attribute_name">Telephone:</td>
+          <td id="iw-phone"></td>
+        </tr>
+        <tr id="iw-rating-row" class="iw_table_row">
+          <td class="iw_attribute_name">Rating:</td>
+          <td id="iw-rating"></td>
+        </tr>
+        <tr id="iw-website-row" class="iw_table_row">
+          <td class="iw_attribute_name">Website:</td>
+          <td id="iw-website"></td>
+        </tr>
       </table>
     </div>
+  </div>
 
-    <div style="display: none">
-      <div id="info-content">
-        <table>
-          <tr id="iw-url-row" class="iw_table_row">
-            <td id="iw-icon" class="iw_table_icon"></td>
-            <td id="iw-url"></td>
-          </tr>
-          <tr id="iw-address-row" class="iw_table_row">
-            <td class="iw_attribute_name">Address:</td>
-            <td id="iw-address"></td>
-          </tr>
-          <tr id="iw-phone-row" class="iw_table_row">
-            <td class="iw_attribute_name">Telephone:</td>
-            <td id="iw-phone"></td>
-          </tr>
-          <tr id="iw-rating-row" class="iw_table_row">
-            <td class="iw_attribute_name">Rating:</td>
-            <td id="iw-rating"></td>
-          </tr>
-          <tr id="iw-website-row" class="iw_table_row">
-            <td class="iw_attribute_name">Website:</td>
-            <td id="iw-website"></td>
-          </tr>
-        </table>
-      </div>
-    </div>
-
-    <footer>
-        <!-- script for list of countries and map coordinates -->
-        <script type=src="assets/js/countries.js"></script>
-        <!-- script to load map with custom data -->
-        <script src="assets/js/map.js"></script>
-        <!-- script to load map API -->
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8oF2DjYQt4uwB0vepjVFH6JPcY86voes&libraries=places&callback=initMap"></script>
-    </footer>
+  <footer>
+    <!-- script for list of countries and map coordinates -->
+    <script type=src="assets/js/countries.js"></script>
+    <!-- script to load map with custom data -->
+    <script src="assets/js/map.js"></script>
+    <!-- script to load map API -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8oF2DjYQt4uwB0vepjVFH6JPcY86voes&libraries=places&callback=initMap"></script>
+  </footer>
 
 </body>
 
