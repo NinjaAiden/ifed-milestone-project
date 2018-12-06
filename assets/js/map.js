@@ -1,4 +1,4 @@
-var map, autocomplete, places, infoWindow;
+var map, autocomplete, places, infoWindow, searchRequest;
 var markers = [];
 var countryRestrict = { 'country': [] };
 var MARKER_PATH = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
@@ -84,34 +84,35 @@ function initMap() {
 }
 
 function detectButton(btnSelected) {
-    btnSelected = (this.id);
-
+    
     switch (btnSelected) {
 
-        case "#hotelBtn":
-            onPlaceChanged('hotel');
+        case "hotelBtn":
+            searchRequest = 'hotel';
+            console.log("HOTEL");
             break;
 
-        case "#restaurantBtn":
-            onPlaceChanged('restaurant');
+        case "restaurantBtn":
+            searchRequest = 'restaurant';
+            console.log("RESTAURANT");
             break;
 
-        case "#barBtn":
-            onPlaceChanged('bar');
+        case "barBtn":
+            searchRequest = 'bar';
+            console.log("BAR");
             break;
-
-        default:
-            onPlaceChanged('hotel');
     }
-    return btnSelected;
+
+    return searchRequest;
 }
 
 // When the user selects a city, get the place details for the city and
 // zoom the map in on the city.
 function onPlaceChanged(type) {
     var place = autocomplete.getPlace();
-    type = detectButton(); 
-    if (detectButton('hotel')) {
+    detectButton();
+    console.log(searchRequest);
+    if (searchRequest == 'hotel') {
         place = autocomplete.getPlace();
         if (place.geometry) {
             map.panTo(place.geometry.location);
@@ -122,7 +123,7 @@ function onPlaceChanged(type) {
             document.getElementById('search-bar').placeholder = 'Enter a city';
         }
     }
-    else if (detectButton('restaurant')) {
+    else if (searchRequest == 'restaurant') {
         place = autocomplete.getPlace();
         if (place.geometry) {
             map.panTo(place.geometry.location);
@@ -133,7 +134,7 @@ function onPlaceChanged(type) {
             document.getElementById('search-bar').placeholder = 'Enter a city';
         }
     }
-    else if (detectButton('bar')) {
+    else if (searchRequest == 'bar') {
         place = autocomplete.getPlace();
         if (place.geometry) {
             map.panTo(place.geometry.location);
@@ -148,6 +149,8 @@ function onPlaceChanged(type) {
 
 // Search for hotels in the selected city, within the viewport of the map.
 function hotelSearch() {
+    clearResults();
+    clearMarkers();
     var search = {
         bounds: map.getBounds(),
         types: ['lodging']
@@ -155,8 +158,6 @@ function hotelSearch() {
 
     places.nearbySearch(search, function(results, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-            clearResults();
-            clearMarkers();
             // Create a marker for each hotel found, and
             // assign a letter of the alphabetic to each marker icon.
             for (var i = 0; i < results.length; i++) {
@@ -180,14 +181,14 @@ function hotelSearch() {
 }
 
 function barSearch() {
+    clearResults();
+    clearMarkers();
     var search = {
         bounds: map.getBounds(),
         types: ['bar']
     };
     places.nearbySearch(search, function(results, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-            clearResults();
-            clearMarkers();
             // Create a marker for each hotel found, and
             // assign a letter of the alphabetic to each marker icon.
             for (var i = 0; i < results.length; i++) {
@@ -211,14 +212,14 @@ function barSearch() {
 }
 
 function restaurantSearch() {
+    clearResults();
+    clearMarkers();
     var search = {
         bounds: map.getBounds(),
         types: ['bar']
     };
     places.nearbySearch(search, function(results, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-            clearResults();
-            clearMarkers();
             // Create a marker for each hotel found, and
             // assign a letter of the alphabetic to each marker icon.
             for (var i = 0; i < results.length; i++) {
@@ -248,7 +249,7 @@ function clearMarkers() {
         }
     }
     markers = [];
-    console.log("CLEARED");
+    console.log("MCLEARED");
 }
 
 // Set the country restriction based on user input.
@@ -307,6 +308,7 @@ function clearResults() {
     while (results.childNodes[0]) {
         results.removeChild(results.childNodes[0]);
     }
+    console.log("RCLEARED");
 }
 
 // Get the place details for a hotel. Show the information in an info window,
