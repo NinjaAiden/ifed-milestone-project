@@ -23,20 +23,16 @@ div #map {
 }
 
 /* ----- buttons ------ */
-.request-buttons{
+
+.request-buttons {
     text-align: center;
 }
 
 /* ----- results ------ */
 
-.results-container {
-    margin-top: 2rem;
-    margin-bottom: 5rem;
-    border: 1px solid #888888;
-    box-shadow: 5px 10px #aaaaaa;
-}
-
-#results-table {
-    min-height: 360px;
-    width: 70%;
+#listing {
+    min-height: 500px;
+    margin: 50px auto;
+    width: 75%;
+    text-align: center;
 }

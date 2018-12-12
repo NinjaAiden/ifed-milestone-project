@@ -1,4 +1,5 @@
-var map, autocomplete, places, infoWindow, searchRequest;
+var map, autocomplete, places, infoWindow;
+var searchRequest;
 var markers = [];
 var countryRestrict = { 'country': [] };
 var MARKER_PATH = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
@@ -88,18 +89,15 @@ function detectButton(btnSelected) {
     switch (btnSelected) {
 
         case "hotelBtn":
-            searchRequest = 'hotel';
-            console.log("HOTEL");
+            searchRequest = 'hotel';;
             break;
 
         case "restaurantBtn":
             searchRequest = 'restaurant';
-            console.log("RESTAURANT");
             break;
 
         case "barBtn":
             searchRequest = 'bar';
-            console.log("BAR");
             break;
     }
 
@@ -111,7 +109,6 @@ function detectButton(btnSelected) {
 function onPlaceChanged(type) {
     var place = autocomplete.getPlace();
     detectButton();
-    console.log(searchRequest);
     if (searchRequest == 'hotel') {
         place = autocomplete.getPlace();
         if (place.geometry) {
@@ -140,6 +137,15 @@ function onPlaceChanged(type) {
             map.panTo(place.geometry.location);
             map.setZoom(15);
             barSearch();
+        }
+        else {
+            document.getElementById('search-bar').placeholder = 'Enter a city';
+        }
+    }else{
+         place = autocomplete.getPlace();
+        if (place.geometry) {
+            map.panTo(place.geometry.location);
+            map.setZoom(15);
         }
         else {
             document.getElementById('search-bar').placeholder = 'Enter a city';
@@ -249,14 +255,13 @@ function clearMarkers() {
         }
     }
     markers = [];
-    console.log("MCLEARED");
 }
 
 // Set the country restriction based on user input.
 // Also center and zoom the map on the given country.
 function setAutocompleteCountry() {
     var country = document.getElementById('country-picker').value;
-    if (country == 'all') {
+    if (country == 'all' || country == 'select') {
         autocomplete.setComponentRestrictions({ 'country': [] });
         map.setCenter({ lat: 15, lng: 0 });
         map.setZoom(2);
@@ -273,7 +278,6 @@ function setAutocompleteCountry() {
 function dropMarker(i) {
     return function() {
         markers[i].setMap(map);
-        console.log("DROPPED");
     };
 
 }
@@ -308,7 +312,6 @@ function clearResults() {
     while (results.childNodes[0]) {
         results.removeChild(results.childNodes[0]);
     }
-    console.log("RCLEARED");
 }
 
 // Get the place details for a hotel. Show the information in an info window,
