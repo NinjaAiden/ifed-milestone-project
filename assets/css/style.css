@@ -1,4 +1,4 @@
-/* ----- search bar ------ */
+/* ----- navbar ------ */
 
 .bg-blue {
     background-color: #00dfff;
@@ -34,5 +34,34 @@ div #map {
     min-height: 500px;
     margin: 50px auto;
     width: 75%;
-    text-align: center;
+}
+
+tr {
+    width: 75%;
+}
+
+td {
+    padding: 0 2rem;
+}
+
+td:nth-child(even) {
+    width: 100%;
+}
+
+/* ----- media queries ------ */
+
+@media (max-width: 768px) {
+
+    .btn {
+        width: 80%;
+        margin-bottom: 1rem;
+    }
+
+    #listing {
+        width: 95%;
+    }
+
+    tr {
+        width: 95%;
+    }
 }
