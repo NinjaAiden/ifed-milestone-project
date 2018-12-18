@@ -2,10 +2,21 @@
 
 .bg-blue {
     background-color: #00dfff;
+    box-shadow: 3px 3px #dbdbdb;
 }
 
 .search-bar {
     width: 60%;
+}
+
+.citySearch{
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.font-weight-bold{
+    margin-right: 0;
+    font-size: 30px;
 }
 
 /* ----- map ------ */
@@ -28,6 +39,10 @@ div #map {
     text-align: center;
 }
 
+.btn {
+    color: white;
+}
+
 /* ----- results ------ */
 
 #listing {
@@ -41,7 +56,7 @@ tr {
 }
 
 td {
-    padding: 0 2rem;
+    padding: 0 1rem;
 }
 
 td:nth-child(even) {
@@ -51,6 +66,10 @@ td:nth-child(even) {
 /* ----- media queries ------ */
 
 @media (max-width: 768px) {
+    
+    .navbar-brand{
+        font-size: 30px;
+    }
 
     .btn {
         width: 80%;
