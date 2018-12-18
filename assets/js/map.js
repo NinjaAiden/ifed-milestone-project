@@ -1,4 +1,6 @@
+// variables for map and google references
 var map, autocomplete, place, places, infoWindow;
+// variables for search criteria
 var searchRequest, search;
 var markers = [];
 var countryRestrict = { 'country': [] };
@@ -57,6 +59,7 @@ var countries = {
     }
 };
 
+//initialis map function
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 2,
@@ -67,6 +70,7 @@ function initMap() {
         streetViewControl: false
     });
 
+    // initialise info window object
     infoWindow = new google.maps.InfoWindow({
         content: document.getElementById('info-content')
     });
@@ -100,6 +104,25 @@ function onPlaceChanged(type) {
     getPlace();
 }
 
+function detectButton(btnSelected) {
+
+    switch (btnSelected) {
+
+        case "hotelBtn":
+            searchRequest = 'hotel';
+            break;
+
+        case "restaurantBtn":
+            searchRequest = 'restaurant';
+            break;
+
+        case "barBtn":
+            searchRequest = 'bar';
+            break;
+    }
+    return searchRequest;
+}
+
 function getPlace() {
     place = autocomplete.getPlace();
     if (place.geometry) {
@@ -118,26 +141,6 @@ function getPlace() {
     else {
         document.getElementById('search-bar').placeholder = 'Select a city';
     }
-}
-
-function detectButton(btnSelected) {
-
-    switch (btnSelected) {
-
-        case "hotelBtn":
-            searchRequest = 'hotel';
-            break;
-
-        case "restaurantBtn":
-            searchRequest = 'restaurant';
-            break;
-
-        case "barBtn":
-            searchRequest = 'bar';
-            break;
-    }
-
-    return searchRequest;
 }
 
 // Search for hotels in the selected city, within the viewport of the map.
@@ -216,7 +219,7 @@ function setAutocompleteCountry() {
     var country = document.getElementById('country-picker').value;
     if (country == 'all' || country == 'select') {
         autocomplete.setComponentRestrictions({ 'country': [] });
-        map.setCenter({ lat: 15, lng: 0 });
+        map.setCenter({  lat: 46.2, lng: 2.2 });
         map.setZoom(2);
     }
     else {
