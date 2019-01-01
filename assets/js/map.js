@@ -59,8 +59,9 @@ var countries = {
     }
 };
 
-//initialis map function
+//initialise map function
 function initMap() {
+
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 2,
         center: countries['fr'].center,

@@ -21,6 +21,7 @@ This single page application, uses the following technologies:
 + Google Maps API is used for the bulk of the functionality.
 + Jquery for easier DOM manipulation.
 + Bootstrap for CSS assistance.
++ Jasmine was also used for some automated testing.
 
 ### Features left to implement
 
@@ -34,6 +35,8 @@ Tests include:
 + Removal of restrictions upon reverting to 'all' or 'select country' option allows user to search for cities outside of previously selected countries.
 + Testing all buttons work, with different countries and cities selected.
 + Ensuring CSS styling is functional and aesthitic in all view types
+
+Some testing was also done with Jasmine testing suite to ensure methods are being called.
 
 ### Deployment
 
