@@ -3,7 +3,9 @@ var map, autocomplete, place, places, infoWindow;
 // variables for search criteria
 var searchRequest, search;
 var markers = [];
-var countryRestrict = { 'country': [] };
+var countryRestrict = {
+    'country': []
+};
 var MARKER_PATH = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
 var hostnameRegexp = new RegExp('^https?://.+?/');
 
@@ -14,47 +16,74 @@ var hostnameRegexp = new RegExp('^https?://.+?/');
 var countries = {
     // China
     'cn': {
-        center: { lat: 35.8, lng: 104.1 },
+        center: {
+            lat: 35.8,
+            lng: 104.1
+        },
         zoom: 4
     },
     // France
     'fr': {
-        center: { lat: 46.2, lng: 2.2 },
+        center: {
+            lat: 46.2,
+            lng: 2.2
+        },
         zoom: 5
     },
     // Italy
     'it': {
-        center: { lat: 41.9, lng: 12.6 },
+        center: {
+            lat: 41.9,
+            lng: 12.6
+        },
         zoom: 5
     },
     // Malaysia
     'my': {
-        center: { lat: 3.6, lng: 101.9 },
+        center: {
+            lat: 3.6,
+            lng: 101.9
+        },
         zoom: 6
     },
     // Mexico
     'mx': {
-        center: { lat: 24.0, lng: -102.5 },
+        center: {
+            lat: 24.0,
+            lng: -102.5
+        },
         zoom: 5
     },
     // Spain
     'es': {
-        center: { lat: 40.5, lng: -3.7 },
+        center: {
+            lat: 40.5,
+            lng: -3.7
+        },
         zoom: 5
     },
     // Thailand
     'th': {
-        center: { lat: 15.8, lng: 100.9 },
+        center: {
+            lat: 15.8,
+            lng: 100.9
+        },
         zoom: 5
     },
     //United Kingdom
     'uk': {
-        center: { lat: 54.8, lng: -4.6 },
+        center: {
+            lat: 54.8,
+            lng: -4.6
+        },
         zoom: 5
     },
     // United States
     'us': {
-        center: { lat: 38.1, lng: -95.7 },
+        center: {
+            lat: 38.1,
+            lng: -95.7
+        },
         zoom: 4
     }
 };
@@ -131,15 +160,12 @@ function getPlace() {
         map.setZoom(15);
         if (searchRequest == 'hotel') {
             hotelSearch();
-        }
-        else if (searchRequest == 'bar') {
+        } else if (searchRequest == 'bar') {
             barSearch();
-        }
-        else if (searchRequest == 'restaurant') {
+        } else if (searchRequest == 'restaurant') {
             restaurantSearch();
         }
-    }
-    else {
+    } else {
         document.getElementById('search-bar').placeholder = 'Select a city';
     }
 }
@@ -219,12 +245,18 @@ function clearMarkers() {
 function setAutocompleteCountry() {
     var country = document.getElementById('country-picker').value;
     if (country == 'all' || country == 'select') {
-        autocomplete.setComponentRestrictions({ 'country': [] });
-        map.setCenter({  lat: 46.2, lng: 2.2 });
+        autocomplete.setComponentRestrictions({
+            'country': []
+        });
+        map.setCenter({
+            lat: 46.2,
+            lng: 2.2
+        });
         map.setZoom(2);
-    }
-    else {
-        autocomplete.setComponentRestrictions({ 'country': country });
+    } else {
+        autocomplete.setComponentRestrictions({
+            'country': country
+        });
         map.setCenter(countries[country].center);
         map.setZoom(countries[country].zoom);
     }
@@ -275,7 +307,9 @@ function clearResults() {
 // anchored on the marker for the hotel that the user selected.
 function showInfoWindow() {
     var marker = this;
-    places.getDetails({ placeId: marker.placeResult.place_id },
+    places.getDetails({
+            placeId: marker.placeResult.place_id
+        },
         function(place, status) {
             if (status !== google.maps.places.PlacesServiceStatus.OK) {
                 return;
@@ -297,8 +331,7 @@ function buildIWContent(place) {
         document.getElementById('iw-phone-row').style.display = '';
         document.getElementById('iw-phone').textContent =
             place.formatted_phone_number;
-    }
-    else {
+    } else {
         document.getElementById('iw-phone-row').style.display = 'none';
     }
 
@@ -310,15 +343,13 @@ function buildIWContent(place) {
         for (var i = 0; i < 5; i++) {
             if (place.rating < (i + 0.5)) {
                 ratingHtml += '&#10025;';
-            }
-            else {
+            } else {
                 ratingHtml += '&#10029;';
             }
             document.getElementById('iw-rating-row').style.display = '';
             document.getElementById('iw-rating').innerHTML = ratingHtml;
         }
-    }
-    else {
+    } else {
         document.getElementById('iw-rating-row').style.display = 'none';
     }
 
@@ -333,8 +364,7 @@ function buildIWContent(place) {
         }
         document.getElementById('iw-website-row').style.display = '';
         document.getElementById('iw-website').textContent = website;
-    }
-    else {
+    } else {
         document.getElementById('iw-website-row').style.display = 'none';
     }
 }
