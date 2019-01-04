@@ -9,89 +9,108 @@ var countryRestrict = {
 var MARKER_PATH = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
 var hostnameRegexp = new RegExp('^https?://.+?/');
 
+// list of necessary components from html document
+var mapScreen = document.getElementById('map');
+var IWContent = document.getElementById('info-content');
+var searchBar = document.getElementById('search-bar');
+var hotelButton = document.getElementById('hotelBtn');
+var restaurantButton = document.getElementById('restaurantBtn');
+var barButton = document.getElementById('barBtn');
+var countryPicker = document.getElementById('country-picker');
+var resultsTable = document.getElementById('results');
+
+// components for info window elements
+var IWIcon = document.getElementById('iw-icon');
+var IWUrl = document.getElementById('iw-url');
+var IWAddress = document.getElementById('iw-address');
+var IWPhoneRow = document.getElementById('iw-phone-row');
+var IWPhone = document.getElementById('iw-phone');
+var IWRatingRow = document.getElementById('iw-rating-row');
+var IWRating = document.getElementById('iw-rating');
+var IWWebsiteRow = document.getElementById('iw-website-row');
+var IWWebsite = document.getElementById('iw-website');
 
 
-
-// list of coordinates for countries
-var countries = {
-    // China
-    'cn': {
-        center: {
-            lat: 35.8,
-            lng: 104.1
+    // list of coordinates for countries
+    var countries = {
+        // China
+        'cn': {
+            center: {
+                lat: 35.8,
+                lng: 104.1
+            },
+            zoom: 4
         },
-        zoom: 4
-    },
-    // France
-    'fr': {
-        center: {
-            lat: 46.2,
-            lng: 2.2
+        // France
+        'fr': {
+            center: {
+                lat: 46.2,
+                lng: 2.2
+            },
+            zoom: 5
         },
-        zoom: 5
-    },
-    // Italy
-    'it': {
-        center: {
-            lat: 41.9,
-            lng: 12.6
+        // Italy
+        'it': {
+            center: {
+                lat: 41.9,
+                lng: 12.6
+            },
+            zoom: 5
         },
-        zoom: 5
-    },
-    // Malaysia
-    'my': {
-        center: {
-            lat: 3.6,
-            lng: 101.9
+        // Malaysia
+        'my': {
+            center: {
+                lat: 3.6,
+                lng: 101.9
+            },
+            zoom: 6
         },
-        zoom: 6
-    },
-    // Mexico
-    'mx': {
-        center: {
-            lat: 24.0,
-            lng: -102.5
+        // Mexico
+        'mx': {
+            center: {
+                lat: 24.0,
+                lng: -102.5
+            },
+            zoom: 5
         },
-        zoom: 5
-    },
-    // Spain
-    'es': {
-        center: {
-            lat: 40.5,
-            lng: -3.7
+        // Spain
+        'es': {
+            center: {
+                lat: 40.5,
+                lng: -3.7
+            },
+            zoom: 5
         },
-        zoom: 5
-    },
-    // Thailand
-    'th': {
-        center: {
-            lat: 15.8,
-            lng: 100.9
+        // Thailand
+        'th': {
+            center: {
+                lat: 15.8,
+                lng: 100.9
+            },
+            zoom: 5
         },
-        zoom: 5
-    },
-    //United Kingdom
-    'uk': {
-        center: {
-            lat: 54.8,
-            lng: -4.6
+        //United Kingdom
+        'uk': {
+            center: {
+                lat: 54.8,
+                lng: -4.6
+            },
+            zoom: 5
         },
-        zoom: 5
-    },
-    // United States
-    'us': {
-        center: {
-            lat: 38.1,
-            lng: -95.7
-        },
-        zoom: 4
-    }
-};
+        // United States
+        'us': {
+            center: {
+                lat: 38.1,
+                lng: -95.7
+            },
+            zoom: 4
+        }
+    };
 
 //initialise map function
 function initMap() {
 
-    map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(mapScreen, {
         zoom: 2,
         center: countries['fr'].center,
         mapTypeControl: false,
@@ -102,7 +121,7 @@ function initMap() {
 
     // initialise info window object
     infoWindow = new google.maps.InfoWindow({
-        content: document.getElementById('info-content')
+        content: IWContent
     });
 
     // Create the autocomplete object and associate it with the UI input control.
@@ -110,7 +129,7 @@ function initMap() {
     autocomplete = new google.maps.places.Autocomplete(
         /** @type {!HTMLInputElement} */
         (
-            document.getElementById('search-bar')), {
+            searchBar), {
             types: ['(cities)'],
             componentRestrictions: countryRestrict
         });
@@ -118,12 +137,12 @@ function initMap() {
 
     // add event listeners for elements
     autocomplete.addListener('place_changed', onPlaceChanged);
-    document.getElementById('hotelBtn').addEventListener('click', onPlaceChanged);
-    document.getElementById('restaurantBtn').addEventListener('click', onPlaceChanged);
-    document.getElementById('barBtn').addEventListener('click', onPlaceChanged);
+    hotelButton.addEventListener('click', onPlaceChanged);
+    restaurantButton.addEventListener('click', onPlaceChanged);
+    barButton.addEventListener('click', onPlaceChanged);
 
     // Add a DOM event listener to react when the user selects a country.
-    document.getElementById('country-picker').addEventListener(
+    countryPicker.addEventListener(
         'change', setAutocompleteCountry);
 }
 
@@ -165,7 +184,7 @@ function getPlace() {
         }
     }
     else {
-        document.getElementById('search-bar').placeholder = 'Select A City';
+        searchBar.placeholder = 'Select A City';
     }
 }
 
@@ -220,7 +239,7 @@ function clearMarkers() {
 // Set the country restriction based on user input.
 // Also center and zoom the map on the given country.
 function setAutocompleteCountry() {
-    var country = document.getElementById('country-picker').value;
+    var country = countryPicker.value;
     if (country == 'all' || country == 'select') {
         autocomplete.setComponentRestrictions({
             'country': []
@@ -250,7 +269,7 @@ function dropMarker(i) {
 }
 
 function addResult(result, i) {
-    var results = document.getElementById('results');
+    var results = resultsTable;
     var markerLetter = String.fromCharCode('A'.charCodeAt(0) + (i % 26));
     var markerIcon = MARKER_PATH + markerLetter + '.png';
 
@@ -275,7 +294,7 @@ function addResult(result, i) {
 }
 
 function clearResults() {
-    var results = document.getElementById('results');
+    var results = resultsTable;
     while (results.childNodes[0]) {
         results.removeChild(results.childNodes[0]);
     }
@@ -299,19 +318,19 @@ function showInfoWindow() {
 
 // Load the place information into the HTML elements used by the info window.
 function buildIWContent(place) {
-    document.getElementById('iw-icon').innerHTML = '<img class="hotelIcon" ' +
+    IWIcon.innerHTML = '<img class="hotelIcon" ' +
         'src="' + place.icon + '"/>';
-    document.getElementById('iw-url').innerHTML = '<b><a href="' + place.url +
+    IWUrl.innerHTML = '<b><a href="' + place.url +
         '">' + place.name + '</a></b>';
-    document.getElementById('iw-address').textContent = place.vicinity;
+    IWAddress.textContent = place.vicinity;
 
     if (place.formatted_phone_number) {
-        document.getElementById('iw-phone-row').style.display = '';
-        document.getElementById('iw-phone').textContent =
+        IWPhoneRow.style.display = '';
+        IWPhone.textContent =
             place.formatted_phone_number;
     }
     else {
-        document.getElementById('iw-phone-row').style.display = 'none';
+        IWPhoneRow.style.display = 'none';
     }
 
     // Assign a five-star rating to the hotel, using a black star ('&#10029;')
@@ -326,12 +345,12 @@ function buildIWContent(place) {
             else {
                 ratingHtml += '&#10029;';
             }
-            document.getElementById('iw-rating-row').style.display = '';
-            document.getElementById('iw-rating').innerHTML = ratingHtml;
+            IWRatingRow.style.display = '';
+            IWRating.innerHTML = ratingHtml;
         }
     }
     else {
-        document.getElementById('iw-rating-row').style.display = 'none';
+        IWRatingRow.style.display = 'none';
     }
 
     // The regexp isolates the first part of the URL (domain plus subdomain)
@@ -343,10 +362,10 @@ function buildIWContent(place) {
             website = 'http://' + place.website + '/';
             fullUrl = website;
         }
-        document.getElementById('iw-website-row').style.display = '';
-        document.getElementById('iw-website').textContent = website;
+        IWWebsiteRow.style.display = '';
+        IWWebsite.textContent = website;
     }
     else {
-        document.getElementById('iw-website-row').style.display = 'none';
+        IWWebsiteRow.style.display = 'none';
     }
 }
