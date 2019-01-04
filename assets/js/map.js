@@ -154,6 +154,7 @@ function detectButton(btnSelected) {
     return searchRequest;
 }
 
+// function to detect input form search bar and focus on chosen city
 function getPlace() {
     place = autocomplete.getPlace();
     if (place.geometry) {
@@ -164,10 +165,11 @@ function getPlace() {
         }
     }
     else {
-        document.getElementById('search-bar').placeholder = 'Select a city';
+        document.getElementById('search-bar').placeholder = 'Select A City';
     }
 }
 
+// function to search for establishments in chosen city and fill results table
 function searchForEstablishment() {
     clearResults();
     clearMarkers();
@@ -205,6 +207,7 @@ function createMarkers() {
 
 }
 
+// clear markers from map
 function clearMarkers() {
     for (var i = 0; i < markers.length; i++) {
         if (markers[i]) {
