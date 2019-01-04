@@ -134,12 +134,13 @@ function onPlaceChanged(type) {
     getPlace();
 }
 
+// return information on which button was clicked to allow propogation of results table
 function detectButton(btnSelected) {
 
     switch (btnSelected) {
 
         case "hotelBtn":
-            searchRequest = 'hotel';
+            searchRequest = 'lodging';
             break;
 
         case "restaurantBtn":
@@ -158,51 +159,24 @@ function getPlace() {
     if (place.geometry) {
         map.panTo(place.geometry.location);
         map.setZoom(15);
-        if (searchRequest == 'hotel') {
-            hotelSearch();
-        } else if (searchRequest == 'bar') {
-            barSearch();
-        } else if (searchRequest == 'restaurant') {
-            restaurantSearch();
+        if (searchRequest != null) {
+            searchForEstablishment();
         }
-    } else {
+    }
+    else {
         document.getElementById('search-bar').placeholder = 'Select a city';
     }
 }
 
-// Search for hotels in the selected city, within the viewport of the map.
-function hotelSearch() {
+function searchForEstablishment() {
     clearResults();
     clearMarkers();
     search = {
         bounds: map.getBounds(),
-        types: ['lodging']
+        types: [searchRequest]
     };
 
     createMarkers();
-}
-
-function barSearch() {
-    clearResults();
-    clearMarkers();
-    search = {
-        bounds: map.getBounds(),
-        types: ['bar']
-    };
-
-    createMarkers();
-}
-
-function restaurantSearch() {
-    clearResults();
-    clearMarkers();
-    search = {
-        bounds: map.getBounds(),
-        types: ['restaurant']
-    };
-
-    createMarkers();
-
 }
 
 function createMarkers() {
@@ -253,7 +227,8 @@ function setAutocompleteCountry() {
             lng: 2.2
         });
         map.setZoom(2);
-    } else {
+    }
+    else {
         autocomplete.setComponentRestrictions({
             'country': country
         });
@@ -331,7 +306,8 @@ function buildIWContent(place) {
         document.getElementById('iw-phone-row').style.display = '';
         document.getElementById('iw-phone').textContent =
             place.formatted_phone_number;
-    } else {
+    }
+    else {
         document.getElementById('iw-phone-row').style.display = 'none';
     }
 
@@ -343,13 +319,15 @@ function buildIWContent(place) {
         for (var i = 0; i < 5; i++) {
             if (place.rating < (i + 0.5)) {
                 ratingHtml += '&#10025;';
-            } else {
+            }
+            else {
                 ratingHtml += '&#10029;';
             }
             document.getElementById('iw-rating-row').style.display = '';
             document.getElementById('iw-rating').innerHTML = ratingHtml;
         }
-    } else {
+    }
+    else {
         document.getElementById('iw-rating-row').style.display = 'none';
     }
 
@@ -364,7 +342,8 @@ function buildIWContent(place) {
         }
         document.getElementById('iw-website-row').style.display = '';
         document.getElementById('iw-website').textContent = website;
-    } else {
+    }
+    else {
         document.getElementById('iw-website-row').style.display = 'none';
     }
 }
