@@ -31,81 +31,81 @@ var IWWebsiteRow = document.getElementById('iw-website-row');
 var IWWebsite = document.getElementById('iw-website');
 
 
-    // list of coordinates for countries
-    var countries = {
-        // China
-        'cn': {
-            center: {
-                lat: 35.8,
-                lng: 104.1
-            },
-            zoom: 4
+// list of coordinates for countries
+var countries = {
+    // China
+    'cn': {
+        center: {
+            lat: 35.8,
+            lng: 104.1
         },
-        // France
-        'fr': {
-            center: {
-                lat: 46.2,
-                lng: 2.2
-            },
-            zoom: 5
+        zoom: 4
+    },
+    // France
+    'fr': {
+        center: {
+            lat: 46.2,
+            lng: 2.2
         },
-        // Italy
-        'it': {
-            center: {
-                lat: 41.9,
-                lng: 12.6
-            },
-            zoom: 5
+        zoom: 5
+    },
+    // Italy
+    'it': {
+        center: {
+            lat: 41.9,
+            lng: 12.6
         },
-        // Malaysia
-        'my': {
-            center: {
-                lat: 3.6,
-                lng: 101.9
-            },
-            zoom: 6
+        zoom: 5
+    },
+    // Malaysia
+    'my': {
+        center: {
+            lat: 3.6,
+            lng: 101.9
         },
-        // Mexico
-        'mx': {
-            center: {
-                lat: 24.0,
-                lng: -102.5
-            },
-            zoom: 5
+        zoom: 6
+    },
+    // Mexico
+    'mx': {
+        center: {
+            lat: 24.0,
+            lng: -102.5
         },
-        // Spain
-        'es': {
-            center: {
-                lat: 40.5,
-                lng: -3.7
-            },
-            zoom: 5
+        zoom: 5
+    },
+    // Spain
+    'es': {
+        center: {
+            lat: 40.5,
+            lng: -3.7
         },
-        // Thailand
-        'th': {
-            center: {
-                lat: 15.8,
-                lng: 100.9
-            },
-            zoom: 5
+        zoom: 5
+    },
+    // Thailand
+    'th': {
+        center: {
+            lat: 15.8,
+            lng: 100.9
         },
-        //United Kingdom
-        'uk': {
-            center: {
-                lat: 54.8,
-                lng: -4.6
-            },
-            zoom: 5
+        zoom: 5
+    },
+    //United Kingdom
+    'uk': {
+        center: {
+            lat: 54.8,
+            lng: -4.6
         },
-        // United States
-        'us': {
-            center: {
-                lat: 38.1,
-                lng: -95.7
-            },
-            zoom: 4
-        }
-    };
+        zoom: 5
+    },
+    // United States
+    'us': {
+        center: {
+            lat: 38.1,
+            lng: -95.7
+        },
+        zoom: 4
+    }
+};
 
 //initialise map function
 function initMap() {
@@ -182,8 +182,7 @@ function getPlace() {
         if (searchRequest != null) {
             searchForEstablishment();
         }
-    }
-    else {
+    } else {
         searchBar.placeholder = 'Select A City';
     }
 }
@@ -249,8 +248,7 @@ function setAutocompleteCountry() {
             lng: 2.2
         });
         map.setZoom(2);
-    }
-    else {
+    } else {
         autocomplete.setComponentRestrictions({
             'country': country
         });
@@ -328,8 +326,7 @@ function buildIWContent(place) {
         IWPhoneRow.style.display = '';
         IWPhone.textContent =
             place.formatted_phone_number;
-    }
-    else {
+    } else {
         IWPhoneRow.style.display = 'none';
     }
 
@@ -341,15 +338,13 @@ function buildIWContent(place) {
         for (var i = 0; i < 5; i++) {
             if (place.rating < (i + 0.5)) {
                 ratingHtml += '&#10025;';
-            }
-            else {
+            } else {
                 ratingHtml += '&#10029;';
             }
             IWRatingRow.style.display = '';
             IWRating.innerHTML = ratingHtml;
         }
-    }
-    else {
+    } else {
         IWRatingRow.style.display = 'none';
     }
 
@@ -364,8 +359,7 @@ function buildIWContent(place) {
         }
         IWWebsiteRow.style.display = '';
         IWWebsite.textContent = website;
-    }
-    else {
+    } else {
         IWWebsiteRow.style.display = 'none';
     }
 }
