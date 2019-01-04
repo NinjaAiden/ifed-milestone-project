@@ -198,7 +198,7 @@ function restaurantSearch() {
     clearMarkers();
     search = {
         bounds: map.getBounds(),
-        types: ['bar']
+        types: ['restaurant']
     };
 
     createMarkers();
